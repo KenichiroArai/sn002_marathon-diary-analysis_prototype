@@ -22,3 +22,21 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Maven
+target/
+
+# アプリケーションログ（kmg-fund の logback 設定で出力される）
+logs/
+
+# Eclipse（.project / .classpath は管理する）
+bin/
+.settings/
+
+# Frontend（Next.js）
+frontend/node/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/next-env.d.ts
+*.tsbuildinfo
