@@ -21,7 +21,7 @@ public class HelloServiceImpl implements HelloService {
      *
      * @since 0.1.0
      */
-    private static final String HELLO_MESSAGE = "Hello World";
+    private static final String HELLO_MESSAGE = "Hello World"; //$NON-NLS-1$
 
     /**
      * デフォルトコンストラクタ

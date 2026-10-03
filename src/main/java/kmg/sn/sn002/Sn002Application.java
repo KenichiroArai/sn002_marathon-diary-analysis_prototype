@@ -19,16 +19,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Sn002Application {
 
     /**
-     * デフォルトコンストラクタ
-     *
-     * @since 0.1.0
-     */
-    public Sn002Application() {
-
-        // 処理なし
-    }
-
-    /**
      * アプリケーションを起動する。
      *
      * @since 0.1.0
@@ -40,6 +30,16 @@ public class Sn002Application {
 
         SpringApplication.run(Sn002Application.class, args);
 
+    }
+
+    /**
+     * デフォルトコンストラクタ
+     *
+     * @since 0.1.0
+     */
+    public Sn002Application() {
+
+        // 処理なし
     }
 
 }

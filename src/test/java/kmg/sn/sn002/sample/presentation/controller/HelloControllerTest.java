@@ -23,7 +23,7 @@ import kmg.sn.sn002.sample.application.service.HelloService;
  */
 @WebMvcTest(HelloController.class)
 @SuppressWarnings({
-    "nls", "static-method"
+    "nls",
 })
 public class HelloControllerTest {
 
