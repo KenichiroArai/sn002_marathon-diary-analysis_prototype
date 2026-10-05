@@ -26,6 +26,9 @@ public class Sn002Application {
      * @param args
      *             起動引数
      */
+    @SuppressWarnings({
+        "resource",
+    })
     public static void main(final String[] args) {
 
         SpringApplication.run(Sn002Application.class, args);

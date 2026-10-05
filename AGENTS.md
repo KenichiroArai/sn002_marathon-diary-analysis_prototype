@@ -121,6 +121,42 @@ cd frontend && npm run lint
 - 修飾子に限らず必須
 - 後述の「Javadoc のフォーマットルール」に従う
 
+### record の禁止
+
+- `record` は使用しない。DTO や値オブジェクトも通常の `class` で定義する
+- 理由: アクセサ・コンストラクタ・`equals` / `hashCode` / `toString` が自動生成されソース上に行が存在しないため、ブレークポイントを設定できず、どこで参照されたかのトレースやデバッグができない
+- 代わりに次の形で実装する
+  - フィールドは `private`（変更不要なら `final`）で定義する
+  - 値はコンストラクタ（またはセッター）で設定する
+  - 値の取得は `getXxx()` 形式のゲッターを明示的に定義する（JSON 変換時もゲッターが呼ばれるため、ブレークポイントで参照箇所を追える）
+  - `equals` / `hashCode` / `toString` が必要な場合は明示的に実装する
+
+```java
+// 望ましくない形式:
+public record HelloResponse(String message) {
+}
+
+// 望ましい形式:
+public class HelloResponse {
+
+    private final String message;
+
+    public HelloResponse(final String message) {
+
+        this.message = message;
+
+    }
+
+    public String getMessage() {
+
+        final String result = this.message;
+        return result;
+
+    }
+
+}
+```
+
 ### 早期リターンパターン
 
 - 早期リターン（ガード節）を使用し、不要なネストを避ける
@@ -385,7 +421,7 @@ public class SampleClass {
 - [ ] 後方互換の確認（破壊的変更時は移行方針）
 - [ ] テストの追加 / 更新（命名・実装順序・検証方法を含む）
 - [ ] `mvn test` で JaCoCo カバレッジ 100% を維持
-- [ ] コーディングルール（戻り値 `result`、早期リターン、処理コメント）の順守
+- [ ] コーディングルール（戻り値 `result`、早期リターン、処理コメント、`record` 禁止）の順守
 - [ ] Javadoc の追加 / 更新
 - [ ] フロントエンドを変更した場合、`npm run lint` と `mvn package`（静的エクスポート）の成功
 - [ ] `pom.xml` を変更した場合、`.classpath` の差分の確認
@@ -398,6 +434,7 @@ public class SampleClass {
 - フロントエンドから Spring Boot の URL（`http://localhost:8080` など）を直接指定すること
 - 静的エクスポートで使えない Next.js のサーバー機能を使うこと
 - シークレットをコードやログに出すこと
+- `record` を使うこと（ブレークポイントを設定できずデバッグ・トレースの妨げになるため。通常の `class` とゲッターで実装する）
 - 深いネストのままガード節を使わずに実装すること
 - テストメソッドに複数ケースを詰め込むこと
 - （追記）
